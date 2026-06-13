@@ -1,0 +1,97 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Contact {
+  id            String   @id @default(cuid())
+  firstName     String
+  lastName      String
+  company       String?
+  phone         String?
+  email         String?
+  website       String?
+  linkedin      String?
+  source        String?  // website | event | referral | other
+  montantEstime Float?
+  status        String   @default("prospect") // prospect | client | lost
+  notes         String?
+  pipelineStage String   @default("new_lead") // new_lead | contacted | meeting_scheduled | proposal_sent | won | lost
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  appointments Appointment[]
+  followUps    FollowUp[]
+  activities   Activity[]
+}
+
+model Appointment {
+  id          String   @id @default(cuid())
+  title       String
+  date        DateTime
+  endDate     DateTime?
+  type        String   @default("rdv") // rdv | task | call | reminder | lunch | other
+  color       String   @default("orange") // orange | red | pink | purple | indigo | blue | cyan | teal | green | amber
+  notes       String?
+  contactId   String?
+  contact     Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model FollowUp {
+  id          String   @id @default(cuid())
+  contactId   String?
+  contact     Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  dueDate     DateTime
+  priority    String   @default("medium") // low | medium | high
+  notes       String?
+  status      String   @default("pending") // pending | completed
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Activity {
+  id          String   @id @default(cuid())
+  type        String   // contact_added | appointment_created | status_updated | followup_created | followup_completed
+  description String
+  contactId   String?
+  contact     Contact? @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+}
+
+model PriceItem {
+  id          String   @id @default(cuid())
+  category    String   // styles | motion | packshot | retouche | other
+  name        String
+  description String?
+  price       Float
+  unit        String   @default("forfait") // forfait | heure | jour | image | video
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model RevenueGoal {
+  id          String   @id @default(cuid())
+  year        Int
+  month       Int      // 1-12
+  target      Float    @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([year, month])
+}
+
+model Settings {
+  id            String  @id @default(cuid())
+  userName      String  @default("Martin Chevalier")
+  userEmail     String  @default("martin@example.com")
+  companyName   String  @default("DODO CRM")
+  companyPhone  String?
+  companyEmail  String?
+  theme         String  @default("system") // light | dark | system
+}
