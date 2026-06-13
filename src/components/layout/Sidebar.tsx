@@ -90,7 +90,7 @@ export function Sidebar() {
   return (
     <>
       {/* ── Desktop sidebar (toujours visible ≥ lg) ──────────────────── */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-[rgb(var(--border))] bg-[rgb(var(--card))] lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col border-r border-[rgb(var(--border))] bg-[rgb(var(--card))] lg:flex shadow-sm">
         {navContent}
       </aside>
 

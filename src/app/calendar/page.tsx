@@ -222,7 +222,7 @@ export default function CalendarPage() {
 
         {/* ── VUE MOIS ── */}
         {view === "month" && (
-          <div className="overflow-x-auto rounded-xl border border-[rgb(var(--border))]">
+          <div className="overflow-x-auto rounded-xl border border-[rgb(var(--border))] card-elevated">
             <div className="min-w-[500px]">
               <div className="grid grid-cols-7 border-b border-[rgb(var(--border))] bg-[rgb(var(--secondary))]">
                 {DAYS.map(d => (
@@ -302,7 +302,7 @@ export default function CalendarPage() {
 
         {/* ── VUE SEMAINE ── */}
         {view === "week" && (
-          <div className="overflow-x-auto rounded-xl border border-[rgb(var(--border))]">
+          <div className="overflow-x-auto rounded-xl border border-[rgb(var(--border))] card-elevated">
             <div className="min-w-[500px]">
               <div className="grid grid-cols-7 border-b border-[rgb(var(--border))] bg-[rgb(var(--secondary))]">
                 {weekDays.map(date => {

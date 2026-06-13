@@ -262,7 +262,7 @@ export default function PipelinePage() {
 
                 {/* Colonne */}
                 <div className={`min-h-[400px] rounded-xl border-2 p-2 transition-all duration-150 space-y-2
-                  ${isOver ? "border-orange-500/60 bg-orange-500/5 scale-[1.01]" : `border-dashed ${stage.color}`}`}>
+                  ${isOver ? "border-orange-500/60 bg-orange-500/5 scale-[1.01]" : `border-dashed ${stage.color} bg-white/50 dark:bg-transparent`}`}>
 
                   {stageContacts.length === 0 && (
                     <button
@@ -281,10 +281,10 @@ export default function PipelinePage() {
                       onDrag={handleDrag}
                       onDragEnd={handleDragEnd}
                       onClick={() => openDetail(contact.id)}
-                      className={`group cursor-pointer rounded-lg border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-3 shadow-sm transition-all
-                        hover:shadow-lg hover:-translate-y-0.5 hover:border-orange-500/30
+                      className={`group cursor-pointer rounded-xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-3 transition-all card-elevated
+                        hover:-translate-y-0.5 hover:border-orange-400/40
                         ${draggingId === contact.id ? "opacity-40 scale-95" : ""}
-                        ${selectedContact?.id === contact.id && drawerOpen ? "border-orange-500/50 ring-1 ring-orange-500/20" : ""}`}
+                        ${selectedContact?.id === contact.id && drawerOpen ? "border-orange-500/60 ring-2 ring-orange-500/15" : ""}`}
                     >
                       <div className="flex items-start gap-2">
                         <GripVertical className="h-4 w-4 mt-0.5 text-[rgb(var(--muted-foreground))]/25 group-hover:text-[rgb(var(--muted-foreground))]/50 shrink-0 transition-colors" />

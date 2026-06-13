@@ -165,7 +165,7 @@ export default function ContactsPage() {
         </div>
 
         {/* Table */}
-        <div className="rounded-xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] overflow-hidden overflow-x-auto">
+        <div className="rounded-xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] overflow-hidden overflow-x-auto card-elevated">
           {isLoading ? (
             <div className="flex items-center justify-center py-16">
               <div className="h-6 w-6 animate-spin rounded-full border-2 border-orange-600 border-t-transparent" />

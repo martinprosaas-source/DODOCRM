@@ -24,7 +24,7 @@ export function TopBar({ title, subtitle, children }: TopBarProps) {
   const ThemeIcon = theme === "light" ? Sun : theme === "dark" ? Moon : Monitor;
 
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-[rgb(var(--border))] bg-[rgb(var(--background))]/80 px-4 backdrop-blur-sm sm:px-6">
+    <header className="sticky top-0 z-30 flex h-14 items-center justify-between border-b border-[rgb(var(--border))] bg-[rgb(var(--card))]/90 px-4 backdrop-blur-md sm:px-6 shadow-sm">
       <div className="flex items-center gap-3 min-w-0">
         {/* Bouton hamburger mobile */}
         <Button
