@@ -43,12 +43,12 @@ interface ContactCard {
 }
 
 const STAGES = [
-  { id: "new_lead",           label: "Nouveau Lead",     color: "border-blue-500/30 bg-blue-500/5",     dot: "bg-blue-500" },
-  { id: "contacted",          label: "Contacté",         color: "border-purple-500/30 bg-purple-500/5", dot: "bg-purple-500" },
-  { id: "meeting_scheduled",  label: "Réunion Planifiée",color: "border-amber-500/30 bg-amber-500/5",   dot: "bg-amber-500" },
-  { id: "proposal_sent",      label: "Devis Envoyé",     color: "border-orange-500/30 bg-orange-500/5", dot: "bg-orange-500" },
-  { id: "won",                label: "Gagné",            color: "border-emerald-500/30 bg-emerald-500/5",dot: "bg-emerald-500" },
-  { id: "lost",               label: "Perdu",            color: "border-red-500/30 bg-red-500/5",       dot: "bg-red-500" },
+  { id: "new_lead",           label: "Nouveau Lead",     color: "border-blue-200 bg-blue-50 dark:border-blue-500/30 dark:bg-blue-500/5",           dot: "bg-blue-500",    header: "text-blue-700 dark:text-blue-400" },
+  { id: "contacted",          label: "Contacté",         color: "border-purple-200 bg-purple-50 dark:border-purple-500/30 dark:bg-purple-500/5",   dot: "bg-purple-500",  header: "text-purple-700 dark:text-purple-400" },
+  { id: "meeting_scheduled",  label: "Réunion Planifiée",color: "border-amber-200 bg-amber-50 dark:border-amber-500/30 dark:bg-amber-500/5",       dot: "bg-amber-500",   header: "text-amber-700 dark:text-amber-400" },
+  { id: "proposal_sent",      label: "Devis Envoyé",     color: "border-orange-200 bg-orange-50 dark:border-orange-500/30 dark:bg-orange-500/5",   dot: "bg-orange-500",  header: "text-orange-700 dark:text-orange-400" },
+  { id: "won",                label: "Gagné",            color: "border-emerald-200 bg-emerald-50 dark:border-emerald-500/30 dark:bg-emerald-500/5",dot: "bg-emerald-500", header: "text-emerald-700 dark:text-emerald-400" },
+  { id: "lost",               label: "Perdu",            color: "border-red-200 bg-red-50 dark:border-red-500/30 dark:bg-red-500/5",               dot: "bg-red-500",     header: "text-red-700 dark:text-red-400" },
 ] as const;
 
 const STAGE_BADGE_COLORS: Record<string, string> = {
@@ -230,7 +230,7 @@ export default function PipelinePage() {
     <div className="flex flex-col min-h-screen">
       <TopBar title="Pipeline" subtitle={`${totalContacts} contact${totalContacts > 1 ? "s" : ""} au total`} />
 
-      <div className="flex-1 overflow-x-auto p-3 sm:p-6 animate-fade-in">
+      <div className="flex-1 overflow-x-auto p-3 sm:p-6 animate-fade-in bg-[rgb(var(--background))]">
         <div className="flex gap-3 sm:gap-4 min-w-[640px]">
           {STAGES.map((stage) => {
             const stageContacts = contacts.filter(c => c.pipelineStage === stage.id);
@@ -243,11 +243,11 @@ export default function PipelinePage() {
                 onDragLeave={() => setDragOverStage(null)}
               >
                 {/* Header */}
-                <div className="mb-3 flex items-center justify-between px-1">
+                <div className="mb-2 flex items-center justify-between px-1">
                   <div className="flex items-center gap-1.5">
                     <span className={`h-2 w-2 rounded-full ${stage.dot}`} />
-                    <h3 className="text-sm font-semibold">{stage.label}</h3>
-                    <span className="rounded-full bg-[rgb(var(--secondary))] px-1.5 py-0.5 text-[10px] font-medium text-[rgb(var(--muted-foreground))]">
+                    <h3 className={`text-xs font-bold uppercase tracking-wide ${stage.header}`}>{stage.label}</h3>
+                    <span className="rounded-full bg-[rgb(var(--background))] px-1.5 py-0.5 text-[10px] font-semibold text-[rgb(var(--muted-foreground))] border border-[rgb(var(--border))]">
                       {stageContacts.length}
                     </span>
                   </div>
@@ -261,8 +261,8 @@ export default function PipelinePage() {
                 </div>
 
                 {/* Colonne */}
-                <div className={`min-h-[400px] rounded-xl border-2 p-2 transition-all duration-150 space-y-2
-                  ${isOver ? "border-orange-500/60 bg-orange-500/5 scale-[1.01]" : `border-dashed ${stage.color} bg-white/50 dark:bg-transparent`}`}>
+                <div className={`min-h-[400px] rounded-xl border p-2 transition-all duration-150 space-y-2
+                  ${isOver ? "border-orange-400 bg-orange-50 dark:bg-orange-500/5 scale-[1.01]" : stage.color}`}>
 
                   {stageContacts.length === 0 && (
                     <button
@@ -281,10 +281,11 @@ export default function PipelinePage() {
                       onDrag={handleDrag}
                       onDragEnd={handleDragEnd}
                       onClick={() => openDetail(contact.id)}
-                      className={`group cursor-pointer rounded-xl border border-[rgb(var(--border))] bg-[rgb(var(--card))] p-3 transition-all card-elevated
-                        hover:-translate-y-0.5 hover:border-orange-400/40
+                      className={`group cursor-pointer rounded-lg bg-white dark:bg-[rgb(var(--card))] p-3 transition-all
+                        shadow-sm hover:shadow-md hover:-translate-y-0.5
+                        border border-white/80 dark:border-[rgb(var(--border))]
                         ${draggingId === contact.id ? "opacity-40 scale-95" : ""}
-                        ${selectedContact?.id === contact.id && drawerOpen ? "border-orange-500/60 ring-2 ring-orange-500/15" : ""}`}
+                        ${selectedContact?.id === contact.id && drawerOpen ? "ring-2 ring-orange-500/40 border-orange-300" : ""}`}
                     >
                       <div className="flex items-start gap-2">
                         <GripVertical className="h-4 w-4 mt-0.5 text-[rgb(var(--muted-foreground))]/25 group-hover:text-[rgb(var(--muted-foreground))]/50 shrink-0 transition-colors" />
